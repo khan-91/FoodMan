@@ -5,7 +5,7 @@ import HeaderComponent from "./header/HeaderComponent"
 
 const MainComponent = () => {
   return (
-    <div>MainComponent
+    <div>
         <HeaderComponent />
         <BodyComponent />
         <FooterComponent />
