@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
+import LoadCommentsComponent from './LoadCommentsComponent'
 
 const DishDetailComponent = ({dish}) => {
   return (
@@ -12,6 +13,8 @@ const DishDetailComponent = ({dish}) => {
           <Card.Text style={{textAlign:'left'}}>
             {dish.description}
           </Card.Text>
+          <hr/>
+          <LoadCommentsComponent comments={dish.comments} />
         </Card.Body>
       </Card>
     </div>
