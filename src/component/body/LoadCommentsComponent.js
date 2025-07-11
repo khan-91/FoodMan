@@ -1,20 +1,26 @@
-import React from 'react'
+
+
+
+import React from 'react';
 import dateFormat from 'dateformat';
+
 const LoadCommentsComponent = ({ comments }) => {
-    const previewComments = comments.map((c) => {
-        return (
-            <div key={c.id}>
-                <h5>{c.author}</h5>
-                <p>{c.comment}  <span style={{ color: 'orange', fontWeight: 'bold' }}> Rating:</span> {c.rating}</p>
-                <p>{dateFormat(c.date, "dddd, mmmm dS, yyyy")}</p>
+  if (!comments || comments.length === 0) return <p>No comments found.</p>;
 
-            </div>
-        );
-    });
+  return (
+    <div>
+      {comments.map((c) => (
+        <div key={c.id} style={{ marginBottom: '10px' }}>
+          <p style={{ marginBottom: 0 }}>
+            <strong>{c.author}</strong> <span style={{ color: 'orange' }}>({c.rating}★)</span>
+          </p>
+          <p style={{ marginBottom: 0 }}>{c.comment}</p>
+          <small style={{ color: 'gray' }}>{dateFormat(c.date, "mmmm dS, yyyy")}</small>
+          <hr />
+        </div>
+      ))}
+    </div>
+  );
+};
 
-    return (
-        <div>{previewComments}</div>
-    )
-}
-
-export default LoadCommentsComponent
+export default LoadCommentsComponent;
