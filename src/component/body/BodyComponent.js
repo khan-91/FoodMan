@@ -1,8 +1,11 @@
 import React from 'react'
+import MenuComponent from './MenuComponent'
 
 const BodyComponent = () => {
   return (
-    <div>BodyComponent</div>
+    <div>
+      <MenuComponent />
+    </div>
   )
 }
 
