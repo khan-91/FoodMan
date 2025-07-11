@@ -6,9 +6,9 @@ const MenuItem = ({ dish }) => {
                 <Card.Img variant="top" src={dish.image} />
                 <Card.Body>
                     <Card.Title style={{fontSize:30, fontWeight:'bold'}}>{dish.name}</Card.Title>
-                    <Card.Text style={{color:'green'}} >
+                    {/* <Card.Text style={{color:'green'}} >
                         {dish.description}
-                    </Card.Text>
+                    </Card.Text> */}
                 </Card.Body>
                 <Card.Footer>
                     <small>Price: {dish.price}</small>
