@@ -1,6 +1,5 @@
-import React from 'react'
-import { Routes, Route, Navigate, Switch } from 'react-router-dom'
-import MenuComponent from './MenuComponent'
+
+import { Routes, Route, Navigate,} from 'react-router-dom'
 import Home from './Home'
 import Menu from './MenuComponent'
 import About from './About'
