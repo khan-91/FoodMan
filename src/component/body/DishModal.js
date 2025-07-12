@@ -1,9 +1,11 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import LoadCommentsComponent from './LoadCommentsComponent';
+import COMMENTS from '../../data/comments';
 
 const DishModal = ({ show, onHide, dish }) => {
   if (!dish) return null;
+  const filteredComments = COMMENTS.filter(c => c.dishId === dish.id)
 
   return (
     <Modal show={show} onHide={onHide} size="md">
@@ -22,7 +24,7 @@ const DishModal = ({ show, onHide, dish }) => {
 
         <hr />
         <h5>Comments:</h5>
-        <LoadCommentsComponent comments={dish.comments} />
+        <LoadCommentsComponent comments={filteredComments} />
       </Modal.Body>
 
       {/* <Modal.Footer>

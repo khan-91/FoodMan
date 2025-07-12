@@ -1,23 +1,23 @@
-
-
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
-import DISHES from '../../data/dishes'; // Replace with your correct path
-import DishModal from './DishModal'; // Replace with your correct path
+import DISHES from '../../data/dishes'; 
+import COMMENTS from '../../data/comments';
+import DishModal from './DishModal'; 
 
 class MenuComponent extends Component {
   state = {
     dishes: DISHES,
+    comments: COMMENTS,
     selectedDish: null,
-    showModal: false, // ✅ You missed this
+    showModal: false, 
   };
 
   onSelectDish = (dish) => {
-    this.setState({ selectedDish: dish, showModal: true }); // ✅ Open modal on select
+    this.setState({ selectedDish: dish, showModal: true });
   };
 
   handleCloseModal = () => {
-    this.setState({ showModal: false }); // ✅ Close modal
+    this.setState({ showModal: false }); 
   };
 
   render() {
@@ -47,7 +47,6 @@ class MenuComponent extends Component {
           ))}
         </Row>
 
-        {/* ✅ Modal appears here */}
         <DishModal
           show={this.state.showModal}
           onHide={this.handleCloseModal}
