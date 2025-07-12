@@ -25,9 +25,9 @@ const DishModal = ({ show, onHide, dish }) => {
         <LoadCommentsComponent comments={dish.comments} />
       </Modal.Body>
 
-      <Modal.Footer>
+      {/* <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>Close</Button>
-      </Modal.Footer>
+      </Modal.Footer> */}
     </Modal>
   );
 };

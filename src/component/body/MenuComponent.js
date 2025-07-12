@@ -25,10 +25,10 @@ class MenuComponent extends Component {
       <div className="container">
         <Row xs={1} md={2} className="g-4">
           {this.state.dishes.map((dish) => (
-            <Col key={dish.id}>
+            <Col style={{padding:5}} key={dish.id}>
               <Card
                 border="dark"
-                style={{ cursor: 'pointer' }}
+                style={{cursor: 'pointer' }}
                 onClick={() => this.onSelectDish(dish)}
               >
                 <Card.Img
