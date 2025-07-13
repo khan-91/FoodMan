@@ -29,6 +29,16 @@ export class Contact extends Component {
     console.log(this.state);
     event.preventDefault();
 
+    this.setState({
+      firstname: '',
+      lastname: '',
+      telnum: '',
+      email: '',
+      agree: false,
+      contactType: 'Tel.',
+      message: ''
+    });
+
   }
 
   render() {
@@ -44,6 +54,7 @@ export class Contact extends Component {
                 <Form.Control
                   type="text"
                   name="firstname"
+                  required
                   value={this.state.firstname}
                   placeholder="Enter your first name"
                   onChange={this.handleInputChange} />
@@ -53,6 +64,7 @@ export class Contact extends Component {
                 <Form.Control
                   type="text"
                   name="lastname"
+                  required
                   value={this.state.lastname}
                   placeholder="Enter your last name"
                   onChange={this.handleInputChange} />
@@ -64,6 +76,7 @@ export class Contact extends Component {
             <Form.Control
               type="tel"
               name="telnum"
+              required
               value={this.state.telnum}
               placeholder="Enter your telephone number"
               onChange={this.handleInputChange} />
@@ -74,6 +87,7 @@ export class Contact extends Component {
             <Form.Control
               type="email"
               name="email"
+              required
               value={this.state.email}
               placeholder="Enter your email address"
               onChange={this.handleInputChange} />
@@ -109,6 +123,7 @@ export class Contact extends Component {
             <Form.Control
               as="textarea"
               name='message'
+              required
               value={this.state.message}
               rows={4}
               placeholder="Write your message here..."
