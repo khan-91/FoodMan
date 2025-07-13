@@ -2,6 +2,19 @@ import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
+const mapDispatchToProps = dispatch => ({
+  addComment: (dishId, author, rating, comment) =>
+    dispatch({
+      type: "ADD_COMMENT",
+      payload: {
+        dishId,
+        author,
+        rating,
+        comment
+      }
+    })
+});
+
 class CommentForm extends Component {
   constructor(props) {
     super(props);
@@ -19,31 +32,17 @@ class CommentForm extends Component {
   };
 
   handleSubmit = (e) => {
-    this.props.dispatch({
-        type: "ADD_COMMENT",
-        payload: {
-            dishId: this.props.dishId,
-            author: this.state.author,
-            rating:this.state.rating,
-            comment: this.state.comment
-        }
-    })
     e.preventDefault();
 
     const { author, rating, comment } = this.state;
 
     if (author && comment) {
-      const newComment = {
-        // id: Date.now(),
-        author,
-        rating,
-        comment,
-        // date: new Date().toISOString(),
-      };
+      this.props.addComment(this.props.dishId, author, rating, comment);
 
-      this.props.onSubmit(newComment);
+      if (this.props.onSubmit) {
+        this.props.onSubmit({ author, rating, comment });
+      }
 
-      // Reset form
       this.setState({
         author: '',
         rating: '5',
@@ -55,8 +54,6 @@ class CommentForm extends Component {
   };
 
   render() {
-    // console.log(this.props);
-    
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Group className="mb-2">
@@ -106,4 +103,4 @@ class CommentForm extends Component {
   }
 }
 
-export default connect()(CommentForm);
+export default connect(null, mapDispatchToProps)(CommentForm);
