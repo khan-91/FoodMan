@@ -5,7 +5,7 @@ export class Home extends Component {
     document.title = "Home"
     return (
       <div>
-        <Loading />
+        HOME
       </div>
     )
   }

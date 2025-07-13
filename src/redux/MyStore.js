@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { applyMiddleware } from "@reduxjs/toolkit";
 import { Reducer } from "./Reducer";
 import logger from "redux-logger";
 

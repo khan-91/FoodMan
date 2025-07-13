@@ -3,7 +3,8 @@ import { Card, Col, Row } from 'react-bootstrap';
 import DishModal from './DishModal';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../redux/ActionTypes'
-import { addComment } from '../../redux/ActionCreators';
+import { addComment, fetchDishes } from '../../redux/ActionCreators';
+import Loading from './Loading';
 const mapStateToProps = state => {
 
   return {
@@ -14,7 +15,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   addComment: (dishId, author, rating, comment) =>
-    dispatch(addComment(dishId, rating, author, comment))
+    dispatch(addComment(dishId, rating, author, comment)),
+  fetchDishes: () => dispatch(fetchDishes())
 });
 
 class MenuComponent extends Component {
@@ -31,44 +33,56 @@ class MenuComponent extends Component {
     this.setState({ showModal: false });
   };
 
+  componentDidMount() {
+    this.props.fetchDishes();
+  }
+
   render() {
     document.title = "Menu"
-    return (
-      <div className="container">
-        <Row xs={1} md={2} className="g-4">
-          {this.props.dishes.map((dish) => (
-            <Col style={{ padding: 5 }} key={dish.id}>
-              <Card
-                border="dark"
-                style={{ cursor: 'pointer' }}
-                onClick={() => this.onSelectDish(dish)}
-              >
-                <Card.Img
-                  variant="top"
-                  src={dish.image}
-                  style={{ height: '160px', objectFit: 'cover' }}
-                />
-                <Card.Body>
-                  <Card.Title style={{ fontWeight: 'bold' }}>{dish.name}</Card.Title>
-                </Card.Body>
-                <Card.Footer>
-                  <small>Price: {dish.price}/-</small>
-                </Card.Footer>
-              </Card>
-            </Col>
-          ))}
-        </Row>
+    if (this.props.dishes.isLoading) {
+      return (
+        <Loading />
+      )
+    }
+    else {
+      return (
+        <div className="container">
+          <Row xs={1} md={2} className="g-4">
+            {this.props.dishes.dishes.map((dish) => (
+              <Col style={{ padding: 5 }} key={dish.id}>
+                <Card
+                  border="dark"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => this.onSelectDish(dish)}
+                >
+                  <Card.Img
+                    variant="top"
+                    src={dish.image}
+                    style={{ height: '160px', objectFit: 'cover' }}
+                  />
+                  <Card.Body>
+                    <Card.Title style={{ fontWeight: 'bold' }}>{dish.name}</Card.Title>
+                  </Card.Body>
+                  <Card.Footer>
+                    <small>Price: {dish.price}/-</small>
+                  </Card.Footer>
+                </Card>
+              </Col>
+            ))}
+          </Row>
 
-        <DishModal
-          addComment={this.props.addComment}
-          show={this.state.showModal}
-          onHide={this.handleCloseModal}
-          dish={this.state.selectedDish}
-          comments={this.props.comments}
-        />
-      </div>
-    );
+          <DishModal
+            addComment={this.props.addComment}
+            show={this.state.showModal}
+            onHide={this.handleCloseModal}
+            dish={this.state.selectedDish}
+            comments={this.props.comments}
+          />
+        </div>
+      );
+    }
   }
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuComponent);
