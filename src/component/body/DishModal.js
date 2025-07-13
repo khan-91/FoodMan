@@ -1,11 +1,17 @@
-import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+
+import { Modal } from 'react-bootstrap';
 import LoadCommentsComponent from './LoadCommentsComponent';
+import { connect } from 'react-redux';
+import CommentForm from './CommentForm';
 import COMMENTS from '../../data/comments';
 
-const DishModal = ({ show, onHide, dish }) => {
+const mapStateToProps = state => ({
+  comments: state.comments
+});
+const DishModal = ({ show, onHide, dish, comments }) => {
+  //  console.log("Dish in DishModal:", dish.id);
   if (!dish) return null;
-  const filteredComments = COMMENTS.filter(c => c.dishId === dish.id)
+  const filteredComments = comments.filter(c => c.dishId === dish.id)
 
   return (
     <Modal show={show} onHide={onHide} size="md">
@@ -25,6 +31,9 @@ const DishModal = ({ show, onHide, dish }) => {
         <hr />
         <h5>Comments:</h5>
         <LoadCommentsComponent comments={filteredComments} />
+        <hr />
+        <h5>Add a Comment:</h5>
+        <CommentForm dishId={dish.id} onSubmit={(newComment) => console.log("Submitted Comment:", newComment)} />
       </Modal.Body>
 
       {/* <Modal.Footer>
@@ -34,5 +43,8 @@ const DishModal = ({ show, onHide, dish }) => {
   );
 };
 
-export default DishModal;
+
+
+export default connect(mapStateToProps)(DishModal);
+// export default DishModal
 

@@ -1,7 +1,3 @@
-
-
-
-import React from 'react';
 import dateFormat from 'dateformat';
 
 const LoadCommentsComponent = ({ comments }) => {

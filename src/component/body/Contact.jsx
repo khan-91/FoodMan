@@ -32,6 +32,7 @@ export class Contact extends Component {
   }
 
   render() {
+    document.title = "Contact"
     return (
       <Container className="mt-5" style={{ maxWidth: '600px' }}>
         <h2>Send Us Your Feedback</h2>

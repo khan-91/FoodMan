@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 const SignIn = () => {
+    document.title = "SignIn"
     return (
         <div>
             <h3 style={{ padding: 10 }}>Sign In</h3>

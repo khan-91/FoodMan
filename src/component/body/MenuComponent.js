@@ -1,15 +1,21 @@
 import { Component } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
-import DISHES from '../../data/dishes'; 
-import COMMENTS from '../../data/comments';
-import DishModal from './DishModal'; 
+import DishModal from './DishModal';
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => {
+
+  return {
+    dishes: state.dishes,
+    comments: state.comments
+  };
+}
+
 
 class MenuComponent extends Component {
   state = {
-    dishes: DISHES,
-    comments: COMMENTS,
     selectedDish: null,
-    showModal: false, 
+    showModal: false,
   };
 
   onSelectDish = (dish) => {
@@ -17,18 +23,19 @@ class MenuComponent extends Component {
   };
 
   handleCloseModal = () => {
-    this.setState({ showModal: false }); 
+    this.setState({ showModal: false });
   };
 
   render() {
+    document.title = "Menu"
     return (
       <div className="container">
         <Row xs={1} md={2} className="g-4">
-          {this.state.dishes.map((dish) => (
-            <Col style={{padding:5}} key={dish.id}>
+          {this.props.dishes.map((dish) => (
+            <Col style={{ padding: 5 }} key={dish.id}>
               <Card
                 border="dark"
-                style={{cursor: 'pointer' }}
+                style={{ cursor: 'pointer' }}
                 onClick={() => this.onSelectDish(dish)}
               >
                 <Card.Img
@@ -57,4 +64,4 @@ class MenuComponent extends Component {
   }
 }
 
-export default MenuComponent;
+export default connect(mapStateToProps)(MenuComponent);
