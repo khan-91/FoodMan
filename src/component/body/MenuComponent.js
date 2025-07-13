@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import DishModal from './DishModal';
 import { connect } from 'react-redux';
+import * as actionTypes from '../../redux/ActionTypes'
 
 const mapStateToProps = state => {
 
@@ -14,7 +15,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   addComment: (dishId, author, rating, comment) =>
     dispatch({
-      type: "ADD_COMMENT",
+      type: actionTypes.ADD_COMMENT,
       payload: {
         dishId,
         author,
