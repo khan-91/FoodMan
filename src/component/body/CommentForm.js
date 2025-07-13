@@ -1,19 +1,5 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import { connect } from 'react-redux';
-
-const mapDispatchToProps = dispatch => ({
-  addComment: (dishId, author, rating, comment) =>
-    dispatch({
-      type: "ADD_COMMENT",
-      payload: {
-        dishId,
-        author,
-        rating,
-        comment
-      }
-    })
-});
 
 class CommentForm extends Component {
   constructor(props) {
@@ -32,26 +18,24 @@ class CommentForm extends Component {
   };
 
   handleSubmit = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const { author, rating, comment } = this.state;
+  const { author, rating, comment } = this.state;
+  const { dishId, addComment, onSubmit } = this.props;
 
-    if (author && comment) {
-      this.props.addComment(this.props.dishId, author, rating, comment);
+  if (author && comment) {
+    addComment(dishId, author, rating, comment);
+    onSubmit({ author, rating, comment });
 
-      if (this.props.onSubmit) {
-        this.props.onSubmit({ author, rating, comment });
-      }
-
-      this.setState({
-        author: '',
-        rating: '5',
-        comment: '',
-      });
-    } else {
-      alert('Please enter both your name and comment.');
-    }
-  };
+    this.setState({
+      author: '',
+      rating: '5',
+      comment: '',
+    });
+  } else {
+    alert('Please enter both your name and comment.');
+  }
+};
 
   render() {
     return (
@@ -103,4 +87,4 @@ class CommentForm extends Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(CommentForm);
+export default CommentForm;

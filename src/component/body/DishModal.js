@@ -5,11 +5,8 @@ import { connect } from 'react-redux';
 import CommentForm from './CommentForm';
 import COMMENTS from '../../data/comments';
 
-const mapStateToProps = state => ({
-  comments: state.comments
-});
-const DishModal = ({ show, onHide, dish, comments }) => {
-  //  console.log("Dish in DishModal:", dish.id);
+const DishModal = ({ show, onHide, dish, comments, addComment }) => {
+
   if (!dish) return null;
   const filteredComments = comments.filter(c => c.dishId === dish.id)
 
@@ -33,18 +30,10 @@ const DishModal = ({ show, onHide, dish, comments }) => {
         <LoadCommentsComponent comments={filteredComments} />
         <hr />
         <h5>Add a Comment:</h5>
-        <CommentForm dishId={dish.id} onSubmit={(newComment) => console.log("Submitted Comment:", newComment)} />
+        <CommentForm addComment={addComment} dishId={dish.id} onSubmit={(newComment) => console.log("Submitted Comment:", newComment)} />
       </Modal.Body>
-
-      {/* <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>Close</Button>
-      </Modal.Footer> */}
     </Modal>
   );
 };
 
-
-
-export default connect(mapStateToProps)(DishModal);
-// export default DishModal
-
+export default DishModal;
