@@ -3,8 +3,9 @@ import { Card, Col, Row } from 'react-bootstrap';
 import DishModal from './DishModal';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../redux/ActionTypes'
-import { addComment, fetchDishes } from '../../redux/ActionCreators';
+import { addComment, fetchComments, fetchDishes } from '../../redux/ActionCreators';
 import Loading from './Loading';
+import { BaseUrl } from '../../redux/BaseUrl';
 const mapStateToProps = state => {
 
   return {
@@ -16,7 +17,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   addComment: (dishId, author, rating, comment) =>
     dispatch(addComment(dishId, rating, author, comment)),
-  fetchDishes: () => dispatch(fetchDishes())
+  fetchDishes: () => dispatch(fetchDishes()),
+  fetchComments: () => dispatch(fetchComments())
 });
 
 class MenuComponent extends Component {
@@ -35,6 +37,7 @@ class MenuComponent extends Component {
 
   componentDidMount() {
     this.props.fetchDishes();
+    this.props.fetchComments();
   }
 
   render() {
@@ -57,7 +60,7 @@ class MenuComponent extends Component {
                 >
                   <Card.Img
                     variant="top"
-                    src={dish.image}
+                    src={BaseUrl + dish.image}
                     style={{ height: '160px', objectFit: 'cover' }}
                   />
                   <Card.Body>
@@ -77,6 +80,7 @@ class MenuComponent extends Component {
             onHide={this.handleCloseModal}
             dish={this.state.selectedDish}
             comments={this.props.comments}
+            commentsIsLoading = {this.props.comments.isLoading}
           />
         </div>
       );
