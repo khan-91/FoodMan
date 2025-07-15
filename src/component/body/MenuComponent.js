@@ -60,7 +60,8 @@ class MenuComponent extends Component {
                 >
                   <Card.Img
                     variant="top"
-                    src={BaseUrl + dish.image}
+                      src={`/${dish.image}`}
+                    // src={BaseUrl + dish.image}
                     style={{ height: '160px', objectFit: 'cover' }}
                   />
                   <Card.Body>

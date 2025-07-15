@@ -1,10 +1,7 @@
 
 import { Modal } from 'react-bootstrap';
 import LoadCommentsComponent from './LoadCommentsComponent';
-import { connect } from 'react-redux';
 import CommentForm from './CommentForm';
-import COMMENTS from '../../data/comments';
-import { fetchComments } from '../../redux/ActionCreators';
 import { BaseUrl } from '../../redux/BaseUrl';
 
 const DishModal = ({ show, onHide, dish, comments, addComment }) => {
@@ -12,11 +9,12 @@ const DishModal = ({ show, onHide, dish, comments, addComment }) => {
   console.log("Comments prop in DishModal:", comments);
   if (!dish) return null;
   // const filteredComments = comments.filter(c => c.dishId === dish.id)
-  
+
   // const filteredComments = Array.isArray(comments.comments)
   //   ? comments.comments.filter(c => c.dishId === dish.id)
   //   : [];
-const filteredComments = comments.comments?.filter(c => c.dishId === Number(dish.id)) || [];
+  // const filteredComments = comments.comments?.filter(c => c.dishId === Number(dish.id)) || [];
+  const filteredComments = comments.comments?.filter(c => String(c.dishId) === String(dish.id)) || [];
 
 
   // const filteredComments = comments.comments?.filter(c => c.dishId === dish.id) || [];
@@ -30,7 +28,8 @@ const filteredComments = comments.comments?.filter(c => c.dishId === Number(dish
 
       <Modal.Body>
         <img
-          src={BaseUrl + dish.image}
+          src={`/${dish.image}`}
+          // src={BaseUrl + dish.image}
           alt={dish.name}
           style={{ width: '100%', maxHeight: '200px', objectFit: 'contain', marginBottom: '10px' }}
         />
@@ -39,7 +38,9 @@ const filteredComments = comments.comments?.filter(c => c.dishId === Number(dish
 
         <hr />
         <h5>Comments:</h5>
-        <LoadCommentsComponent comments={filteredComments} commentsIsLoading = {comments.commentsIsLoading}/>
+        <LoadCommentsComponent comments={filteredComments} commentsIsLoading={comments.isLoading} />
+
+        {/* <LoadCommentsComponent comments={filteredComments} commentsIsLoading = {comments.commentsIsLoading}/> */}
         <hr />
         <h5>Add a Comment:</h5>
         <CommentForm addComment={addComment} dishId={dish.id} onSubmit={(newComment) => console.log("Submitted Comment:", newComment)} />

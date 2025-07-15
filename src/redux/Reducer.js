@@ -37,14 +37,14 @@ const commentReducer = (commentState = { isLoading: true, comments: [] }, action
                 comments: []
             };
         case actionTypes.ADD_COMMENT:
-            const newComment = {
-                ...action.payload,
-                id: commentState.comments.length,
-                date: new Date().toISOString()
-            };
+           // const newComment = {
+                let comment = action.payload;
+                // id: commentState.comments.length,
+                // date: new Date().toISOString()
+            //};
             return {
                 ...commentState,
-                comments: commentState.comments.concat(newComment)
+                comments: commentState.comments.concat(comment)
             };
         default:
             return commentState;
